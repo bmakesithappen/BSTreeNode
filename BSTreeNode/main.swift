@@ -130,7 +130,7 @@ public class BSTreeNode {
         
     }
     
-    // TODO: write code for if is root , what happens when the node you want to remove has 1 child (else if for 1 started) or 2 children
+    // TODO: Remove function next steps: write code for if is root , when the node you want to remove has 1 child (else if childCount() ==1  started) or 2 children , see note "the state where node is" add error to throw for this case
     
     public func remove(value: Int) {
         if let foundNode = search(value: value) {
