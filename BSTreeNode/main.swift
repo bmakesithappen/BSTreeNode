@@ -21,7 +21,11 @@ import Foundation
  https://www.weheartswift.com/conditionals/  (has code examples / tests)
  
  https://medium.com/@abhimuralidharan/if-let-if-var-guard-let-and-defer-statements-in-swift-4f87fe857eb6
-
+ 
+ https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html
+ 
+ There are four ways to handle errors in Swift. You can propagate the error from a function to the code that calls that function, handle the error using a do-catch statement, handle the error as an optional value, or assert that the error will not occur.
+ 
  
  ideas
  https://github.com/raywenderlich/swift-algorithm-club/tree/master/Binary%20Search%20Tree
@@ -125,7 +129,7 @@ public class BSTreeNode {
         
     }
     
-    public func remove(value: Int) {
+    public func remove(value: Int) throws { // see enum for cases for when errors can be thrown
         if let foundNode = search(value: value) {
             if foundNode.isLeaf() {
                 if foundNode.parent?.leftChild === foundNode {
@@ -136,28 +140,34 @@ public class BSTreeNode {
                     
                 }
             } else if foundNode.childCount() == 1 {
-                // if the foundNode has one child I want to move the foundNode's child
+                // if the foundNode has one child I want to move the foundNode's child to replace it
                 
-            }   // if foundNode.ChildCount() == 2
-                // decide between the two children which one can move and becomes the other child's  (have to decide between values)
-                //
+            }   // if foundNode.childCount() == 2
+            // decide between the two children which one can move and becomes the other child's (have to decide between values)
+            
             
         } else { // whenvever you search for a value(Int) and it does not exist / found = nothing to remove
-             // empty because nothing has to be done and is the last statement no return needed
+            // empty because nothing has to be done and is the last statement no return needed
         }
         
     }
+    // errors for edge cases. would it be possible to throw and error for some of the if / else if statements above in remove func
+    
+    enum  BSTreeNodeError: Error {
+        
+        case detachedNode 
+    }
+    
 }
 
 var testNode = BSTreeNode(value: 6)
-
 assert(testNode.isLeaf())
 
 assert(testNode.insert(value: 10)!.value == 10)
 assert(testNode.insert(value: 10) == nil)
 assert(testNode.isLeaf() == false)
 
-
+assert(testNode.insert(value: 4)!.value == 4)
 
 assert(testNode.isRoot())
 assert(testNode.leftChild!.isRoot() == false)
