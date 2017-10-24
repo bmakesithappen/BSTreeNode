@@ -8,15 +8,7 @@
 
 import Foundation
 
-/* To Dos
- 
-
- scenarios: isleaf , has children 1 vs 2 , is root, if foundNode = nil (does not exist in our tree)
- Getting through blockers: reviewed current code , more comments, pseudo code, look up other examples (not helpful), diagram tree again reviewed documentation on what was confusing me https://www.weheartswift.com/conditionals/
- https://medium.com/@abhimuralidharan/if-let-if-var-guard-let-and-defer-statements-in-swift-4f87fe857eb6
-what is done already isleaf
-why are we concerned with if parent has no children tree is damaaged
- if node being removed isLeaf just remove it and return nothing(nil??)
+/* TODO: Remove function next steps: write code for if is root , when the node you want to remove has 1 child (else if childCount() ==1  started) or 2 children , see note "the state where node is" add error to throw for this case
  
  
  
@@ -27,6 +19,9 @@ why are we concerned with if parent has no children tree is damaaged
  https://www.devmynd.com/blog/a-swift-read-understanding-and-using-optionals/
  
  https://www.weheartswift.com/conditionals/  (has code examples / tests)
+ 
+ https://medium.com/@abhimuralidharan/if-let-if-var-guard-let-and-defer-statements-in-swift-4f87fe857eb6
+
  
  ideas
  https://github.com/raywenderlich/swift-algorithm-club/tree/master/Binary%20Search%20Tree
@@ -130,8 +125,6 @@ public class BSTreeNode {
         
     }
     
-    // TODO: Remove function next steps: write code for if is root , when the node you want to remove has 1 child (else if childCount() ==1  started) or 2 children , see note "the state where node is" add error to throw for this case
-    
     public func remove(value: Int) {
         if let foundNode = search(value: value) {
             if foundNode.isLeaf() {
@@ -140,11 +133,14 @@ public class BSTreeNode {
                 } else if foundNode.parent?.rightChild === foundNode {
                     foundNode.parent?.rightChild = nil
                 } else { // the state where node is detached from tree and part of a damaged tree and I want to throw an error communicating a damaged tree we do not want to run any other functions
-                
+                    
                 }
-            } else if foundNode.childCount() == 1 { // MAKE ??:  else if foundNode.childCount() == 2
+            } else if foundNode.childCount() == 1 {
+                // if the foundNode has one child I want to move the foundNode's child
                 
-            }
+            }   // if foundNode.ChildCount() == 2
+                // decide between the two children which one can move and becomes the other child's  (have to decide between values)
+                //
             
         } else { // whenvever you search for a value(Int) and it does not exist / found = nothing to remove
              // empty because nothing has to be done and is the last statement no return needed
